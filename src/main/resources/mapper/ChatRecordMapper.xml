@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gerry.c2csystem.dao.ChatRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gerry.c2csystem.entity.ChatRecord">
+        <id column="id" property="id" />
+        <result column="from_id" property="fromId" />
+        <result column="to_id" property="toId" />
+        <result column="to_name" property="toName" />
+        <result column="from_name" property="fromName" />
+        <result column="content" property="content" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="content_type_id" property="contentTypeId" />
+        <result column="is_read" property="isRead" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, from_id, to_id, to_name, from_name, content, gmt_create, content_type_id, is_read
+    </sql>
+
+</mapper>

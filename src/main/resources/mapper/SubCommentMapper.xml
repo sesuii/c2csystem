@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gerry.c2csystem.dao.SubCommentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gerry.c2csystem.entity.SubComment">
+        <id column="id" property="id" />
+        <result column="comment_id" property="commentId" />
+        <result column="from_uid" property="fromUid" />
+        <result column="target_uid" property="targetUid" />
+        <result column="content" property="content" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="deleted" property="deleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, comment_id, from_uid, target_uid, content, gmt_create, deleted
+    </sql>
+
+</mapper>

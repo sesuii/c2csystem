@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gerry.c2csystem.dao.UserDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.gerry.c2csystem.entity.UserDetail">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="onsale_count" property="onsaleCount" />
+        <result column="integrity" property="integrity" />
+        <result column="star_count" property="starCount" />
+        <result column="trade_count" property="tradeCount" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_update" property="gmtUpdate" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id, onsale_count, integrity, star_count, trade_count, gmt_create, gmt_update
+    </sql>
+
+</mapper>
