@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Blob;
 import java.util.Date;
 
 /**
@@ -16,7 +15,7 @@ import java.util.Date;
  * </p>
  *
  * @author Gerry
- * @since 2022-05-21
+ * @since 2022-05-28
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -53,7 +52,7 @@ public class Goods implements Serializable {
     /**
      * 商品详细信息
      */
-    private Blob detailMessage;
+    private String detailMessage;
 
     /**
      * 被关注次数
@@ -73,7 +72,7 @@ public class Goods implements Serializable {
     /**
      * 逻辑删除
      */
-    private Integer deleted;
+    private Boolean deleted;
 
     /**
      * 0在售 1已售出 2已删除 3下架 4审核未通过

@@ -46,6 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/swagger*/**", "webjars/**", "/v3/**").permitAll()
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -66,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * @Description 跨域请求配置，放行所有
+     * 跨域请求配置，放行所有
      *
      * @return
      *

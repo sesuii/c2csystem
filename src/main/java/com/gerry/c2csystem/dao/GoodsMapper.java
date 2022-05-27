@@ -9,7 +9,7 @@ import com.gerry.c2csystem.entity.Goods;
  * </p>
  *
  * @author Gerry
- * @since 2022-05-21
+ * @since 2022-05-28
  */
 public interface GoodsMapper extends BaseMapper<Goods> {
 

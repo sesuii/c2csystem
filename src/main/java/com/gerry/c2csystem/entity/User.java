@@ -2,6 +2,7 @@ package com.gerry.c2csystem.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -17,6 +18,7 @@ import java.util.Date;
  * @since 2022-05-21
  */
 @Data
+@Builder
 @EqualsAndHashCode(callSuper = false)
 public class User implements Serializable {
 

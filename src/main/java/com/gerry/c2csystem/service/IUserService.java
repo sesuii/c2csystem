@@ -2,6 +2,10 @@ package com.gerry.c2csystem.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.gerry.c2csystem.entity.User;
+import com.gerry.c2csystem.vo.RegisterVo;
+import com.gerry.c2csystem.vo.UserVo;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +17,14 @@ import com.gerry.c2csystem.entity.User;
  */
 public interface IUserService extends IService<User> {
 
+    /**
+     * 用户注册账号
+     *
+     * @param registerVo 注册对象
+     * @return
+     *
+     **/
+    boolean createAccount(RegisterVo registerVo);
+
+    Map<String, String> toLogin(User user);
 }
