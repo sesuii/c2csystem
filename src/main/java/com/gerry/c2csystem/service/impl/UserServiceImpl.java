@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -35,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     IUserService userService;
 
     @Resource
-    RedisTemplate<String, String> redisTemplate;
+    RedisTemplate<String, Object> redisTemplate;
 
     @Resource
     AuthenticationManager authenticationManager;
@@ -52,6 +53,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User user = User.builder()
                 .nickName(registerVo.getUsername())
                 .email(email)
+                .role("USER")
+                .gmtCreate(new Date())
                 .password(encoder.encode(registerVo.getPassword()))
                 .build();
         userService.save(user);
@@ -61,12 +64,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public Map<String, String> toLogin(User user) {
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(user.getId(), user.getPassword());
+                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         UserVo userVo = (UserVo) authentication.getPrincipal();
-        redisTemplate.opsForValue().set(RedisConstant.USER_ID_PREFIX + user.getId(),
+        redisTemplate.opsForValue().set(RedisConstant.USER_EMAIL_PREFIX + user.getEmail(),
                 JSON.toJSONString(userVo), RedisConstant.TOKEN_EXPIRE_TIME, TimeUnit.SECONDS);
-        String jwt = JwtUtil.createJWT(user.getId() + "");
+        String jwt = JwtUtil.createJWT(user.getEmail());
         return Map.of("token", jwt);
     }
 
@@ -79,7 +82,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      *
      **/
     private boolean verifyCode(String email, String code) {
-        String redisCode = redisTemplate.opsForValue().get(RedisConstant.USER_EMAIL_PREFIX + email);
+        String redisCode = (String) redisTemplate.opsForValue().get(RedisConstant.USER_EMAIL_PREFIX + email);
+        redisTemplate.delete(RedisConstant.USER_EMAIL_PREFIX + email);
         return code.equals(redisCode);
     }
 }

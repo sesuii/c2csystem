@@ -1,5 +1,6 @@
 package com.gerry.c2csystem.util;
 
+import com.gerry.c2csystem.constant.RedisConstant;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -36,7 +37,7 @@ public class JwtUtil {
                 .setId(UUID.randomUUID().toString())
                 .setIssuedAt(now)
                 .setSubject(subject)
-//                .setExpiration(new Date(nowMillis + RedisConstant.TOKEN_EXPIRE_TIME))
+                .setExpiration(new Date(nowMillis + RedisConstant.TOKEN_EXPIRE_TIME * 1000))
                 .signWith(SignatureAlgorithm.HS256, "123456");
         return builder.compact();
     }

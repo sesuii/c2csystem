@@ -11,12 +11,12 @@ public class RedisConstant {
     /**
      * Token 存活时间 6h
      */
-    public static final int TOKEN_EXPIRE_TIME = 1000 * 3600 * 6;
+    public static final int TOKEN_EXPIRE_TIME = 3600 * 6;
 
     /**
      * verify-code 动态验证码有效时间 3min
      */
-    public static final int VERIFY_EXPIRE_TIME = 1000 * 60 * 3;
+    public static final int VERIFY_EXPIRE_TIME = 60 * 3;
 
     /**
      * 用户 ID 为 key 存储在 redis 中，以该字符串为前缀

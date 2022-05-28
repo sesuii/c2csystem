@@ -1,7 +1,10 @@
 package com.gerry.c2csystem.vo;
 
 import com.gerry.c2csystem.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,6 +18,9 @@ import java.util.Collection;
  * @since 2022/5/28 1:01
  **/
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserVo implements UserDetails {
 
     private User user;
@@ -31,7 +37,7 @@ public class UserVo implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getNickName();
+        return user.getEmail();
     }
 
     @Override
