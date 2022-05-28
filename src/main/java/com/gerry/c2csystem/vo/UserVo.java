@@ -1,7 +1,9 @@
 package com.gerry.c2csystem.vo;
 
 import com.gerry.c2csystem.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,6 +17,8 @@ import java.util.Collection;
  * @since 2022/5/28 1:01
  **/
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserVo implements UserDetails {
 
     private User user;

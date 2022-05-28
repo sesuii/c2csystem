@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 动态码验证实现类
@@ -25,7 +26,7 @@ public class VerifyServiceImpl implements IVerifyService {
     JavaMailSender mailSender;
 
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     @Value("${spring.mail.username}")
     String fromMail;
@@ -39,7 +40,8 @@ public class VerifyServiceImpl implements IVerifyService {
         Random random = new Random();
         int verifyCode = random.nextInt(899999) + 100000;
         message.setText("欢迎您的注册！\n您的注册验证码为："+ verifyCode +" 三分钟内有效，请及时完成注册！如果非本人操作，请忽略。");
-        redisTemplate.opsForValue().set(RedisConstant.USER_EMAIL_PREFIX + email, verifyCode + "", RedisConstant.VERIFY_EXPIRE_TIME);
+        redisTemplate.opsForValue().set(RedisConstant.USER_EMAIL_PREFIX + email,
+                String.valueOf(verifyCode), RedisConstant.VERIFY_EXPIRE_TIME, TimeUnit.SECONDS);
         mailSender.send(message);
     }
 }

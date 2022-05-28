@@ -49,8 +49,8 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         Claims claims = JwtUtil.parseJWT(token);
-        String uid = claims.getSubject();
-        String s = (String) redisTemplate.opsForValue().get(RedisConstant.USER_ID_PREFIX + uid);
+        String email = claims.getSubject();
+        String s = (String) redisTemplate.opsForValue().get(RedisConstant.USER_EMAIL_PREFIX + email);
         UserVo userVo = JSON.parseObject(s, UserVo.class);
         if(userVo == null) {
             try {
