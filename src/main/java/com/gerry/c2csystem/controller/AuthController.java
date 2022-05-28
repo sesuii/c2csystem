@@ -1,14 +1,15 @@
 package com.gerry.c2csystem.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.gerry.c2csystem.constant.RedisConstant;
 import com.gerry.c2csystem.constant.ResultEnum;
 import com.gerry.c2csystem.entity.User;
-import com.gerry.c2csystem.entity.resp.Result;
+import com.gerry.c2csystem.vo.resp.Result;
 import com.gerry.c2csystem.service.IUserService;
 import com.gerry.c2csystem.service.IVerifyService;
 import com.gerry.c2csystem.vo.RegisterVo;
-import com.gerry.c2csystem.vo.UserVo;
 import io.swagger.annotations.Api;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,8 +34,11 @@ public class AuthController {
     @Resource
     IVerifyService verifyService;
 
+    @Resource
+    RedisTemplate<String, Object> redisTemplate;
+
     @GetMapping("/verify-code")
-    public Result<?> verifyCode(String email) {
+    public Result<?> verifyCode(@RequestParam("email") String email) {
         User user = userService.getOne(new LambdaQueryWrapper<User>()
                 .eq(User::getEmail, email)
         );
@@ -60,8 +64,10 @@ public class AuthController {
         return Result.success(token);
     }
 
-    // TODO 退出登录
-    // 获取当前用户信息 并且删除 token
-
+    @GetMapping("/logout")
+    public Result<?> logout(@RequestParam("email") String email) {
+        redisTemplate.delete(RedisConstant.USER_EMAIL_PREFIX + email);
+        return Result.success();
+    }
 }
 

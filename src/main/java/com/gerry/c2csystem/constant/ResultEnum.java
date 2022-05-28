@@ -24,6 +24,8 @@ public enum ResultEnum {
     DUPLICATE_USER(5001, "该账号已注册"),
     AUTH_DENY(5003, "用户无访问权限"),
 
+    // 商品相关状态码及信息
+    GOODS_NOT_FOUND(5101, "该商品不存在"),
 
     ;
     private int code;

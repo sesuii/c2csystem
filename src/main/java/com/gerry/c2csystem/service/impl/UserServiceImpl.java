@@ -82,8 +82,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
      *
      **/
     private boolean verifyCode(String email, String code) {
-        String redisCode = (String) redisTemplate.opsForValue().get(RedisConstant.USER_EMAIL_PREFIX + email);
-        redisTemplate.delete(RedisConstant.USER_EMAIL_PREFIX + email);
+        String redisCode = (String) redisTemplate.opsForValue().get(RedisConstant.USER_CODE_PREFIX + email);
+        redisTemplate.delete(RedisConstant.USER_CODE_PREFIX + email);
         return code.equals(redisCode);
     }
 }

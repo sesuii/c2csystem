@@ -1,8 +1,17 @@
 package com.gerry.c2csystem.controller;
 
+import com.gerry.c2csystem.dao.GoodsMapper;
+import com.gerry.c2csystem.vo.GoodsVo;
+import com.gerry.c2csystem.vo.resp.Result;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 商品展示接口
@@ -15,7 +24,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/goods")
 @Api(tags = "商品展示接口")
 public class GoodsController {
-    // TODO 1. 获取商品列表
-    // TODO 2. 获取商品详细信息
-    // TODO 3. 举报商品
+
+    @Resource
+    GoodsMapper goodsMapper;
+
+    @ApiOperation("获取商品列表")
+    @GetMapping("/get-list")
+    public Result<?> skGoodsCategory() {
+        List<GoodsVo> goodsList = goodsMapper.getGoodsDtoList();
+        return Result.success(goodsList);
+    }
+
+    @ApiOperation("获取商品详情信息")
+    @GetMapping("/detail/goodsId={goodsId}")
+    public Result<?> toDetail(@PathVariable Long goodsId) {
+        GoodsVo goodsVo = goodsMapper.getGoodsDto(goodsId);
+        return Result.success(goodsVo);
+    }
 }

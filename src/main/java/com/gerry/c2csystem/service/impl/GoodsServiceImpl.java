@@ -1,10 +1,21 @@
 package com.gerry.c2csystem.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gerry.c2csystem.dao.GoodsImgMapper;
 import com.gerry.c2csystem.dao.GoodsMapper;
 import com.gerry.c2csystem.entity.Goods;
+import com.gerry.c2csystem.entity.GoodsImg;
+import com.gerry.c2csystem.service.IGoodsImgService;
 import com.gerry.c2csystem.service.IGoodsService;
+import com.gerry.c2csystem.vo.GoodsVo;
+import io.swagger.models.auth.In;
+import org.springframework.core.SpringVersion;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +27,55 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements IGoodsService {
+
+    @Resource
+    GoodsMapper goodsMapper;
+
+    @Resource
+    IGoodsImgService goodsImgService;
+
+    @Override
+    public Long saveNewGoods(GoodsVo goodsVo, Long categoryId) {
+        List<String> images = goodsVo.getGoodsImgList();
+        Date now = new Date();
+        Long uid = goodsVo.getUserId();
+        Goods goods = Goods.builder()
+                .userId(uid)
+                .categoryId(categoryId)
+                .goodsName(goodsVo.getGoodsName())
+                .goodsPrice(goodsVo.getGoodsPrice())
+                .detailMessage(goodsVo.getDetailMessage())
+                .gmtUpdate(now)
+                .gmtCreate(now)
+                .build();
+        goodsMapper.insert(goods);
+        Long goodsId = goods.getId();
+        if(!saveImages(images, goodsId)) {
+            return -1L;
+        }
+        return goodsId;
+    }
+
+
+    /**
+     * 保存相关商品图片
+     *
+     * @param images 图片列表
+     * @param goodsId 商品 ID
+     * @return
+     *
+     **/
+    private boolean saveImages(List<String> images, Long goodsId) {
+        for(String img : images) {
+            boolean save = goodsImgService.save(GoodsImg.builder()
+                    .imgUrl(img)
+                    .goodsId(goodsId)
+                    .build());
+            if(!save) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

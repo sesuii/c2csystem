@@ -28,4 +28,5 @@ public class RedisConstant {
      */
     public static final String USER_EMAIL_PREFIX = "email:";
 
+    public static final String USER_CODE_PREFIX = "code:";
 }

@@ -4,14 +4,14 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.gerry.c2csystem.entity.GoodsImg">
-        <id column="id" property="id" />
+        <id column="img_id" property="imgId" />
         <result column="goods_id" property="goodsId" />
         <result column="img_url" property="imgUrl" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, goods_id, img_url
+        img_id, goods_id, img_url
     </sql>
 
 </mapper>

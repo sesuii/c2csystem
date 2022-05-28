@@ -17,6 +17,59 @@
         <result column="status" property="status" />
     </resultMap>
 
+<!--    获取商品详细信息-->
+    <select id="getGoodsDto" resultMap="goodsDtoMap">
+        SELECT
+            g.id,
+            g.user_id,
+            g.goods_name,
+            g.goods_price,
+            g.detail_message,
+            g.stared_times,
+            g.STATUS,
+            gt.type_name,
+            gt.weight,
+            gi.goods_id,
+            gi.img_url
+        FROM
+            goods g
+                JOIN goods_type gt ON g.category_id = gt.id
+                LEFT JOIN goods_img gi ON g.id = gi.goods_id
+        WHERE g.id = #{goodsId}
+    </select>
+
+    <select id="getGoodsDtoList" resultMap="goodsDtoMap">
+        SELECT
+            g.id,
+            g.user_id,
+            g.goods_name,
+            g.goods_price,
+            g.detail_message,
+            g.stared_times,
+            g.STATUS,
+            gt.type_name,
+            gt.weight,
+            gi.img_url
+        FROM
+            goods g
+                JOIN goods_type gt ON g.category_id = gt.id
+                LEFT JOIN goods_img gi ON g.id = gi.goods_id
+    </select>
+    <resultMap id="goodsDtoMap" type="com.gerry.c2csystem.vo.GoodsVo">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="goods_name" property="goodsName" />
+        <result column="goods_price" property="goodsPrice" />
+        <result column="detail_message" property="detailMessage" />
+        <result column="stared_times" property="staredTimes" />
+        <result column="status" property="status" />
+        <result column="type_name" property="typeName" />
+        <result column="weight" property="weight" />
+        <collection property="goodsImgList" javaType="list" ofType="String">
+            <result column="img_url" property="imgUrl" />
+        </collection>
+    </resultMap>
+    
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, user_id, goods_name, category_id, goods_price, detail_message, stared_times, gmt_create, gmt_update, deleted, status

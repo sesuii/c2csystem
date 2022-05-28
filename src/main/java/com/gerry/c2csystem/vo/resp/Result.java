@@ -1,4 +1,4 @@
-package com.gerry.c2csystem.entity.resp;
+package com.gerry.c2csystem.vo.resp;
 
 import com.gerry.c2csystem.constant.ResultEnum;
 import lombok.AllArgsConstructor;
