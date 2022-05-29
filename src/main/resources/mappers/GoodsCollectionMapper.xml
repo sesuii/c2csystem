@@ -14,6 +14,27 @@
         <result column="gmt_update" property="gmtUpdate" />
     </resultMap>
 
+    <select id="getGoodsCollectionList" resultMap="goodsCollectionVoMap">
+        SELECT
+            gc.*,
+            gi.img_url
+        FROM
+            goods_collection gc
+                LEFT JOIN goods_img gi ON gc.goods_id = gi.goods_id
+    </select>
+
+    <resultMap id="goodsCollectionVoMap" type="com.gerry.c2csystem.vo.GoodsCollectionVo">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="goods_id" property="goodsId" />
+        <result column="goods_name" property="goodsName" />
+        <result column="goods_status" property="goodsStatus" />
+        <result column="goods_price" property="goodsPrice" />
+        <collection property="goodsImgList" javaType="list" ofType="String">
+            <result column="img_url" property="imgUrl" />
+        </collection>
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, user_id, goods_id, goods_name, goods_status, goods_price, gmt_create, gmt_update

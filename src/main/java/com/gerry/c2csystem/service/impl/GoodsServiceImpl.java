@@ -1,15 +1,13 @@
 package com.gerry.c2csystem.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gerry.c2csystem.dao.GoodsImgMapper;
 import com.gerry.c2csystem.dao.GoodsMapper;
 import com.gerry.c2csystem.entity.Goods;
 import com.gerry.c2csystem.entity.GoodsImg;
 import com.gerry.c2csystem.service.IGoodsImgService;
 import com.gerry.c2csystem.service.IGoodsService;
 import com.gerry.c2csystem.vo.GoodsVo;
-import io.swagger.models.auth.In;
-import org.springframework.core.SpringVersion;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -56,7 +54,38 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         return goodsId;
     }
 
+    @Override
+    public boolean modifyGoods(GoodsVo newGoodsVo, Long goodsId) {
+        Goods goods = goodsMapper.selectById(goodsId);
+        if(goods == null) {
+            return false;
+        }
+        String goodsName = newGoodsVo.getGoodsName();
+        String detailMessage = newGoodsVo.getDetailMessage();
+        BigDecimal price = newGoodsVo.getGoodsPrice();
+        if(goodsName != null) {
+            goods.setGoodsName(goodsName);
+        }
+        if(detailMessage != null) {
+            goods.setDetailMessage(detailMessage);
+        }
+        if(price != null) {
+            goods.setGoodsPrice(price);
+        }
+        int update = goodsMapper.updateById(goods);
+        if(update != 1) {
+            return false;
+        }
 
+        List<String> imgList = newGoodsVo.getGoodsImgList();
+        if(imgList != null) {
+            goodsImgService.remove(new LambdaQueryWrapper<GoodsImg>()
+                    .eq(GoodsImg::getGoodsId, goodsId)
+            );
+            saveImages(imgList, goodsId);
+        }
+        return true;
+    }
     /**
      * 保存相关商品图片
      *

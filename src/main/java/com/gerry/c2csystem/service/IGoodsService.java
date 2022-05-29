@@ -15,4 +15,6 @@ import com.gerry.c2csystem.vo.GoodsVo;
 public interface IGoodsService extends IService<Goods> {
 
     Long saveNewGoods(GoodsVo goodsVo, Long categoryId);
+
+    boolean modifyGoods(GoodsVo newGoodsVo, Long goodsId);
 }

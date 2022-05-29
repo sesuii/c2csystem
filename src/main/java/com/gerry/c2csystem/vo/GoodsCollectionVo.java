@@ -1,34 +1,24 @@
-package com.gerry.c2csystem.entity;
+package com.gerry.c2csystem.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.*;
+import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.List;
 
 /**
- * <p>
- * 用户收藏表
- * </p>
+ * 商品收藏展示对象
  *
  * @author Gerry
- * @since 2022-05-21
- */
+ * @email sjiahui@gmail.com
+ * @since 2022/5/29 0:44
+ **/
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class GoodsCollection implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class GoodsCollectionVo {
     /**
      * 主键 ID
      */
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -56,15 +46,5 @@ public class GoodsCollection implements Serializable {
      */
     private BigDecimal goodsPrice;
 
-    /**
-     * 创建时间
-     */
-    private Date gmtCreate;
-
-    /**
-     * 更新时间
-     */
-    private Date gmtUpdate;
-
-
+    private List<String> goodsImgList;
 }

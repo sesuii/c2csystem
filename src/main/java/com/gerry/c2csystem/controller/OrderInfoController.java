@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/order-info")
 @Api(tags = "用户订单管理接口")
 public class OrderInfoController {
-    // TODO 查看历史/所有订单
+    // TODO 查看所有订单
     // TODO 1. 获取订单详细信息
     // TODO 2. 获取订单状态
     // TODO 3. 支付订单 事务锁

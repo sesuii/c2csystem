@@ -1,8 +1,19 @@
 package com.gerry.c2csystem.controller;
 
+import com.gerry.c2csystem.constant.ResultEnum;
+import com.gerry.c2csystem.dao.GoodsCollectionMapper;
+import com.gerry.c2csystem.entity.Goods;
+import com.gerry.c2csystem.entity.GoodsCollection;
+import com.gerry.c2csystem.service.IGoodsCollectionService;
+import com.gerry.c2csystem.service.IGoodsService;
+import com.gerry.c2csystem.vo.GoodsCollectionVo;
+import com.gerry.c2csystem.vo.resp.Result;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 商品收藏接口
@@ -15,7 +26,47 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/goods-collection")
 @Api(tags = "商品收藏接口")
 public class GoodsCollectionController {
-    // TODO 收藏商品
-    // TODO 取消收藏
-    // TODO 查看收藏列表
+
+    @Resource
+    IGoodsCollectionService goodsCollectionService;
+
+    @Resource
+    IGoodsService goodsService;
+
+    @Resource
+    GoodsCollectionMapper goodsCollectionMapper;
+
+    @ApiOperation("收藏商品")
+    @GetMapping("/collect-goods")
+    public Result<?> collectGoods(@RequestParam("goodsId") Long goodsId, @RequestParam("collectUid") Long collectUid) {
+        Goods goods = goodsService.getById(goodsId);
+        if(goods == null) {
+            return Result.failed(ResultEnum.GOODS_NOT_FOUND);
+        }
+        boolean collect = goodsCollectionService.collectGoods(goods, collectUid);
+        if(!collect) {
+            return Result.failed(ResultEnum.FAILED);
+        }
+        return Result.success();
+    }
+    @ApiOperation("取消收藏")
+    @GetMapping("/collect-cancel")
+    public Result<?> cancelCollection(@RequestParam("goodsId") Long goodsId, @RequestParam("collectUid") Long collectUid) {
+        Goods goods = goodsService.getById(goodsId);
+        if(goods == null) {
+            return Result.failed(ResultEnum.GOODS_NOT_FOUND);
+        }
+        boolean cancel = goodsCollectionService.cancelCollection(goods, collectUid);
+        if(!cancel) {
+            return Result.failed(ResultEnum.FAILED);
+        }
+        return Result.success();
+    }
+
+    @ApiOperation("查看收藏列表")
+    @PostMapping("/get-collection-list")
+    public Result<?> getCollectionList(@RequestParam("uid") Long uid) {
+        List<GoodsCollectionVo> goodsCollectionVoList = goodsCollectionMapper.getGoodsCollectionList(uid);
+        return Result.success(goodsCollectionVoList);
+    }
 }

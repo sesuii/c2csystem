@@ -1,6 +1,7 @@
 package com.gerry.c2csystem.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gerry.c2csystem.entity.Goods;
 import com.gerry.c2csystem.entity.GoodsCollection;
 
 /**
@@ -13,4 +14,7 @@ import com.gerry.c2csystem.entity.GoodsCollection;
  */
 public interface IGoodsCollectionService extends IService<GoodsCollection> {
 
+    boolean collectGoods(Goods goods, Long collectUid);
+
+    boolean cancelCollection(Goods goods, Long collectUid);
 }

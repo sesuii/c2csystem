@@ -31,14 +31,14 @@ public class GoodsController {
     @ApiOperation("获取商品列表")
     @GetMapping("/get-list")
     public Result<?> skGoodsCategory() {
-        List<GoodsVo> goodsList = goodsMapper.getGoodsDtoList();
+        List<GoodsVo> goodsList = goodsMapper.getGoodsVoList();
         return Result.success(goodsList);
     }
 
     @ApiOperation("获取商品详情信息")
     @GetMapping("/detail/goodsId={goodsId}")
     public Result<?> toDetail(@PathVariable Long goodsId) {
-        GoodsVo goodsVo = goodsMapper.getGoodsDto(goodsId);
+        GoodsVo goodsVo = goodsMapper.getGoodsVo(goodsId);
         return Result.success(goodsVo);
     }
 }
