@@ -1,7 +1,9 @@
 package com.gerry.c2csystem.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gerry.c2csystem.entity.Goods;
 import com.gerry.c2csystem.entity.OrderInfo;
+import com.gerry.c2csystem.entity.User;
 
 /**
  * <p>
@@ -13,4 +15,7 @@ import com.gerry.c2csystem.entity.OrderInfo;
  */
 public interface IOrderInfoService extends IService<OrderInfo> {
 
+    boolean cancelOrder(OrderInfo orderInfo);
+
+    Long payOrder(User user, Goods goods);
 }

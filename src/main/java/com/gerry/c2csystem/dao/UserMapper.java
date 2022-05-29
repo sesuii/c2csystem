@@ -2,6 +2,8 @@ package com.gerry.c2csystem.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gerry.c2csystem.entity.User;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * <p>
@@ -13,4 +15,6 @@ import com.gerry.c2csystem.entity.User;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    @Select("select * from user where id = #{id}")
+    User selectUserById(@Param("id") Long id);
 }

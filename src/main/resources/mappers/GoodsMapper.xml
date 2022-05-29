@@ -16,7 +16,6 @@
         <result column="deleted" property="deleted" />
         <result column="status" property="status" />
     </resultMap>
-
 <!--    获取商品详细信息-->
     <select id="getGoodsVo" resultMap="goodsVoMap">
         SELECT
@@ -35,7 +34,7 @@
             goods g
                 JOIN goods_type gt ON g.category_id = gt.id
                 LEFT JOIN goods_img gi ON g.id = gi.goods_id
-        WHERE g.id = #{goodsId} and g.deleted = 0
+        WHERE g.id = #{goodsId} and g.deleted = 0;
     </select>
 
     <select id="getGoodsVoList" resultMap="goodsVoMap">
@@ -54,7 +53,7 @@
             goods g
                 JOIN goods_type gt ON g.category_id = gt.id
                 LEFT JOIN goods_img gi ON g.id = gi.goods_id
-        WHERE g.deleted = 0
+        WHERE g.deleted = 0;
     </select>
     <resultMap id="goodsVoMap" type="com.gerry.c2csystem.vo.GoodsVo">
         <id column="id" property="id" />

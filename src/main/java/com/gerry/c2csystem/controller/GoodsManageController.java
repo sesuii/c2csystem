@@ -33,7 +33,7 @@ public class GoodsManageController {
     @Resource
     IGoodsImgService goodsImgService;
 
-    @ApiOperation("用户上传新的商品")
+    @ApiOperation("上传新的商品")
     @PostMapping("/add-goods")
     public Result<?> addNewGoods(@RequestBody GoodsVo goodsVo, Long categoryId) {
         if(goodsVo == null) {

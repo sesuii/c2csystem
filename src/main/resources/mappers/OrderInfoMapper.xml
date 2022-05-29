@@ -13,6 +13,31 @@
         <result column="status" property="status" />
     </resultMap>
 
+    <resultMap id="OrderInfoVoMap" type="com.gerry.c2csystem.vo.OrderInfoVo">
+        <id column="id" property="id" />
+        <result column="remitter_id" property="remitterId" />
+        <result column="payee_id" property="payeeId" />
+        <result column="goods_id" property="goodsId" />
+        <result column="tot_price" property="totPrice" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="status" property="status" />
+        <association property="remitter" javaType="com.gerry.c2csystem.entity.User"
+                     autoMapping="true" column="remitter_id"
+                     select="com.gerry.c2csystem.dao.UserMapper.selectUserById"
+                     fetchType="lazy"
+        />
+        <association property="payee" javaType="com.gerry.c2csystem.entity.User"
+                     autoMapping="true" column="payee_id"
+                     select="com.gerry.c2csystem.dao.UserMapper.selectUserById"
+                     fetchType="lazy"
+        />
+        <association property="goods" javaType="com.gerry.c2csystem.entity.Goods"
+                     autoMapping="true" column="goods_id"
+                     select="com.gerry.c2csystem.dao.GoodsMapper.selectGoodsById"
+                     fetchType="lazy"
+        />
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, remitter_id, payee_id, goods_id, tot_price, gmt_create, status

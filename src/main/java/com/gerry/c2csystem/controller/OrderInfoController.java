@@ -1,8 +1,17 @@
 package com.gerry.c2csystem.controller;
 
+import com.gerry.c2csystem.constant.ResultEnum;
+import com.gerry.c2csystem.dao.OrderInfoMapper;
+import com.gerry.c2csystem.entity.OrderInfo;
+import com.gerry.c2csystem.service.IOrderInfoService;
+import com.gerry.c2csystem.vo.OrderInfoVo;
+import com.gerry.c2csystem.vo.resp.Result;
 import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 订单管理接口
@@ -15,11 +24,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/order-info")
 @Api(tags = "用户订单管理接口")
 public class OrderInfoController {
-    // TODO 查看所有订单
-    // TODO 1. 获取订单详细信息
-    // TODO 2. 获取订单状态
-    // TODO 3. 支付订单 事务锁
-    // TODO 4. 获取交易记录
-    // TODO 5. 取消订单
-    // TODO 6. 交易评价
+
+    @Resource
+    IOrderInfoService orderInfoService;
+
+    @Resource
+    OrderInfoMapper orderInfoMapper;
+
+    @ApiOperation("查看所有订单")
+    @PostMapping("/uid={uid}")
+    public Result<?> getOrderVoList(@PathVariable Long uid) {
+        List<OrderInfoVo> orderInfoVoList = orderInfoMapper.getOrderInfoVoList(uid);
+        return Result.success(orderInfoVoList);
+    }
+
+    @ApiOperation("获取订单详细信息")
+    @PostMapping("/get-order/orderId={orderId}")
+    public Result<?> getOrderVo(@PathVariable Long orderId) {
+        OrderInfoVo orderInfoVo = orderInfoMapper.getOrderInfoVo(orderId);
+        return Result.success(orderInfoVo);
+    }
+
+    @ApiOperation("取消订单")
+    @PostMapping("/cancel-order")
+    public Result<?> cancelOrder(Long orderId) {
+        OrderInfo orderInfo = orderInfoService.getById(orderId);
+        if(orderInfo == null) {
+            return Result.failed(ResultEnum.ORDER_NOT_FOUND);
+        }
+        boolean cancel = orderInfoService.cancelOrder(orderInfo);
+        if(!cancel) {
+            return Result.failed(ResultEnum.FAILED);
+        }
+        return Result.success();
+    }
+
 }
