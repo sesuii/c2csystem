@@ -1,5 +1,7 @@
 package com.gerry.c2csystem.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gerry.c2csystem.constant.ResultEnum;
 import com.gerry.c2csystem.dao.OrderInfoMapper;
 import com.gerry.c2csystem.entity.OrderInfo;
@@ -34,8 +36,9 @@ public class OrderInfoController {
     @ApiOperation("查看所有订单")
     @PostMapping("/uid={uid}")
     public Result<?> getOrderVoList(@PathVariable Long uid) {
-        List<OrderInfoVo> orderInfoVoList = orderInfoMapper.getOrderInfoVoList(uid);
-        return Result.success(orderInfoVoList);
+        Page<OrderInfoVo> page = new Page<>(1, 10);
+        IPage<OrderInfoVo> orderInfoVoIPage = orderInfoMapper.getOrderInfoVoList(page, uid);
+        return Result.success(orderInfoVoIPage);
     }
 
     @ApiOperation("获取订单详细信息")

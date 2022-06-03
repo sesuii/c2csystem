@@ -1,7 +1,8 @@
 package com.gerry.c2csystem.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -15,6 +16,9 @@ import java.util.Date;
  * @since 2022-05-21
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @EqualsAndHashCode(callSuper = false)
 public class SubComment implements Serializable {
 
@@ -23,6 +27,7 @@ public class SubComment implements Serializable {
     /**
      * 主键 ID
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
@@ -34,6 +39,11 @@ public class SubComment implements Serializable {
      * 评论用户 ID
      */
     private Long fromUid;
+
+    /**
+     * 评论用户昵称
+     */
+    private String fromNickName;
 
     /**
      * 目标用户 ID

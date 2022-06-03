@@ -48,7 +48,6 @@ public class TradingController {
         if(user == null) {
             return Result.failed(ResultEnum.USER_NOT_FOUND);
         }
-
         Long orderId = orderInfoService.payOrder(user, goods);
         if(orderId == -1L) {
             return Result.failed(ResultEnum.FAILED);

@@ -24,7 +24,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     public boolean cancelOrder(OrderInfo orderInfo) {
         // 改变订单状态
         // 改变商品状态
-        return false;
+        return true;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.gerry.c2csystem.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.gerry.c2csystem.vo.GoodsVo;
 import com.gerry.c2csystem.entity.Goods;
 import org.apache.ibatis.annotations.Param;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public interface GoodsMapper extends BaseMapper<Goods> {
 
-    List<GoodsVo> getGoodsVoList();
+    IPage<GoodsVo> getGoodsVoList(IPage<?> page);
 
     GoodsVo getGoodsVo(Long goodsId);
 

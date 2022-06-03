@@ -7,6 +7,7 @@
         <id column="id" property="id" />
         <result column="comment_id" property="commentId" />
         <result column="from_uid" property="fromUid" />
+        <result column="from_nick_name" property="fromNickName" />
         <result column="target_uid" property="targetUid" />
         <result column="content" property="content" />
         <result column="gmt_create" property="gmtCreate" />
@@ -15,7 +16,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, comment_id, from_uid, target_uid, content, gmt_create, deleted
+        id, comment_id, from_uid, from_nick_name, target_uid, content, gmt_create, deleted
     </sql>
 
 </mapper>

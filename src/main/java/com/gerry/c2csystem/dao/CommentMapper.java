@@ -1,7 +1,11 @@
 package com.gerry.c2csystem.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gerry.c2csystem.entity.Comment;
+import com.gerry.c2csystem.vo.CommentVo;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +17,7 @@ import com.gerry.c2csystem.entity.Comment;
  */
 public interface CommentMapper extends BaseMapper<Comment> {
 
+
+
+    IPage<CommentVo> getCommentPage(Page<CommentVo> page, @Param("goodsId") Long goodsId);
 }

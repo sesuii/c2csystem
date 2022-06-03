@@ -1,14 +1,13 @@
 package com.gerry.c2csystem.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.gerry.c2csystem.dao.GoodsMapper;
 import com.gerry.c2csystem.vo.GoodsVo;
 import com.gerry.c2csystem.vo.resp.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,8 +30,9 @@ public class GoodsController {
     @ApiOperation("获取商品列表")
     @GetMapping("/get-list")
     public Result<?> skGoodsCategory() {
-        List<GoodsVo> goodsList = goodsMapper.getGoodsVoList();
-        return Result.success(goodsList);
+        Page<GoodsVo> page = new Page<>(1,10);
+        IPage<GoodsVo> goodsVoIPage = goodsMapper.getGoodsVoList(page);
+        return Result.success(goodsVoIPage);
     }
 
     @ApiOperation("获取商品详情信息")
