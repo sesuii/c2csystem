@@ -1,10 +1,13 @@
 package com.gerry.c2csystem.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.gerry.c2csystem.constant.ResultEnum;
 import com.gerry.c2csystem.entity.Goods;
+import com.gerry.c2csystem.entity.TradeRecord;
 import com.gerry.c2csystem.entity.User;
 import com.gerry.c2csystem.service.IGoodsService;
 import com.gerry.c2csystem.service.IOrderInfoService;
+import com.gerry.c2csystem.service.ITradeRecordService;
 import com.gerry.c2csystem.service.IUserService;
 import com.gerry.c2csystem.vo.resp.Result;
 import io.swagger.annotations.Api;
@@ -34,6 +37,9 @@ public class TradingController {
     @Resource
     IOrderInfoService orderInfoService;
 
+    @Resource
+    ITradeRecordService tradeRecordService;
+
     @ApiOperation("支付订单")
     @PostMapping("/pay-order")
     public Result<?> payOrder(@RequestParam("uid") Long uid, @RequestParam("goodsId") Long goodsId) {
@@ -53,10 +59,11 @@ public class TradingController {
     }
 
     @ApiOperation("获取交易记录")
-    @GetMapping("/get-trading-record")
-    public Result<?> getTradingRecord() {
-
-        return null;
+    @GetMapping("/orderId={orderId}/get-trading-record")
+    public Result<?> getTradingRecord(@PathVariable Long orderId) {
+        TradeRecord tradeRecord = tradeRecordService.getOne(new LambdaQueryWrapper<TradeRecord>()
+                .eq(TradeRecord::getOrderId, orderId)
+        );
+        return Result.success(tradeRecord);
     }
-    // TODO 4. 获取交易记录
 }
