@@ -9,10 +9,7 @@ import com.gerry.c2csystem.service.IUserService;
 import com.gerry.c2csystem.vo.resp.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -55,6 +52,11 @@ public class TradingController {
         return Result.success(orderId);
     }
 
+    @ApiOperation("获取交易记录")
+    @GetMapping("/get-trading-record")
+    public Result<?> getTradingRecord() {
+
+        return null;
+    }
     // TODO 4. 获取交易记录
-    // TODO 6. 交易评价
 }
