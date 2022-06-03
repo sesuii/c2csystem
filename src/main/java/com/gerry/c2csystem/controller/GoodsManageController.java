@@ -71,7 +71,7 @@ public class GoodsManageController {
 
     @ApiOperation("商品上架")
     @PostMapping("/status-up")
-    public Result<?> onShelves(Goods goods) {
+    public Result<?> onShelves(@RequestBody Goods goods) {
         goods.setStatus(GoodsStatusConstant.GOODS_ON_SALE);
         goodsService.updateById(goods);
         return Result.success();
@@ -79,7 +79,7 @@ public class GoodsManageController {
 
     @ApiOperation("商品下架")
     @PostMapping("/status-down")
-    public Result<?> outShelves(Goods goods) {
+    public Result<?> outShelves(@RequestBody Goods goods) {
         goods.setStatus(GoodsStatusConstant.GOODS_NOT_ONSALE);
         goodsService.updateById(goods);
         return Result.success();
