@@ -93,6 +93,12 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <!-- swagger 美化界面 knife4j-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
+        </dependency>
 <!--        xxx-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
