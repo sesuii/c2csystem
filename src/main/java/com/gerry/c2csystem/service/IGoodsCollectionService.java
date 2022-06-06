@@ -14,7 +14,23 @@ import com.gerry.c2csystem.entity.GoodsCollection;
  */
 public interface IGoodsCollectionService extends IService<GoodsCollection> {
 
+    /**
+     * 收藏商品
+     *
+     * @param goods 商品
+     * @param collectUid 收藏用户 ID
+     * @return
+     *
+     **/
     boolean collectGoods(Goods goods, Long collectUid);
 
+    /**
+     * 取消收藏
+     *
+     * @param goods 商品
+     * @param collectUid 收藏用户 ID
+     * @return
+     *
+     **/
     boolean cancelCollection(Goods goods, Long collectUid);
 }

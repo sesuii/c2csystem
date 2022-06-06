@@ -15,7 +15,22 @@ import com.gerry.c2csystem.entity.User;
  */
 public interface IOrderInfoService extends IService<OrderInfo> {
 
+    /**
+     * 取消订单
+     *
+     * @param orderInfo 商品订单
+     * @return
+     *
+     **/
     boolean cancelOrder(OrderInfo orderInfo);
 
-    Long payOrder(User user, Goods goods);
+    /**
+     * 购买商品
+     *
+     * @param user 用户
+     * @param goods 商品
+     * @return
+     *
+     **/
+    Long buyGoods(User user, Goods goods);
 }

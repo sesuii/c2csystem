@@ -44,7 +44,7 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     }
 
     @Override
-    public Long payOrder(User user, Goods goods) {
+    public Long buyGoods(User user, Goods goods) {
         Date now = new Date();
         OrderInfo orderInfo = OrderInfo.builder()
                 .payeeId(user.getId())
@@ -58,7 +58,12 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         if(!save) {
             return -1L;
         }
-        // FIXME 生成交易记录暂时由触发器完成
+        // TODO 优化 -> 在 Redis 进行标记，先不修改数据库
+        goods.setStatus(OrderInfoStatusConstant.ORDER_HAS_PAID);
+        boolean update = goodsService.updateById(goods);
+        if(!update) {
+            return -1L;
+        }
         return orderInfo.getId();
     }
 }

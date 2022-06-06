@@ -19,7 +19,23 @@ import com.gerry.c2csystem.vo.SubCommentVo;
  */
 public interface ICommentService extends IService<Comment> {
 
+    /**
+     * 添加一级评论
+     *
+     * @param commentVo 评论展示层对象
+     * @param user 用户
+     * @return
+     *
+     **/
     boolean addComment(CommentVo commentVo, User user);
 
+    /**
+     * 添加二级评论
+     *
+     * @param subCommentVo 子评论展示层对象
+     * @param user 用户
+     * @return
+     *
+     **/
     boolean addSubComment(SubCommentVo subCommentVo, User user);
 }

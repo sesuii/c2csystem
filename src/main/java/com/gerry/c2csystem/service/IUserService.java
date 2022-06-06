@@ -25,5 +25,12 @@ public interface IUserService extends IService<User> {
      **/
     boolean createAccount(RegisterVo registerVo);
 
+    /**
+     * 用户登录
+     *
+     * @param user 用户
+     * @return
+     *
+     **/
     Map<String, String> toLogin(User user);
 }
